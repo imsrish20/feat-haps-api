@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   try {
     const events = await Event.find({});
     res.status(200);
-    res.json({ message: "Success", events:events });
+    res.json({ message: "Success", events: events });
   } catch (error) {
     console.log(error);
     res.status(500);

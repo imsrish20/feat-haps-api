@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Sponser = require("../models/sponserModel")
 
-router.get("/", async(req, res) => {
+router.get("/", async (req, res) => {
   try {
     const sponsers = await Sponser.find({});
     res.status(200);
@@ -14,26 +14,26 @@ router.get("/", async(req, res) => {
   }
 });
 
-router.post('/', async(req, res) => {
-  try{
-  let name = req.body.name;
+router.post('/', async (req, res) => {
+  try {
+    let name = req.body.name;
 
-  let message = "";
+    let message = "";
 
-  if (name != "") {
-    res.code = 200;
-    message = "success";
-  } else {
-    res.code = 400;
-    message = "incomplete";
-  }
+    if (name != "") {
+      res.code = 200;
+      message = "success";
+    } else {
+      res.code = 400;
+      message = "incomplete";
+    }
 
-  if (res.code === 200) {
-    result = await Sponser.create({
-      name: name,
-    })
-  }
-  res.json({message: message, result: result });
+    if (res.code === 200) {
+      result = await Sponser.create({
+        name: name,
+      })
+    }
+    res.json({ message: message, result: result });
   }
   catch (error) {
     console.log(error);

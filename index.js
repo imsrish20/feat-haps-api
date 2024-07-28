@@ -1,12 +1,6 @@
-require('dotenv').config(); // Add this line at the very top
-
 const express = require("express");
-const session = require('express-session');
-const passport = require('passport');
 const cors = require("cors");
 const mongoose = require("mongoose");
-
-require('./auth'); // Ensure this is after dotenv config
 
 const app = express();
 const port = process.env.PORT || 3030;
@@ -25,42 +19,9 @@ app.use(cors({
   origin: "http://localhost:3000",
 }));
 
-// Session Middleware
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Routes
 app.get("/", (req, res) => {
   res.send("Welcome to my Project Alpha ☺️");
-});
-
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] })
-);
-
-app.get('/auth/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/protected',
-    failureRedirect: '/auth/google/failure'
-  })
-);
-
-app.get('/protected', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send(`Hello ${req.user.displayName}`);
-  } else {
-    res.redirect('/');
-  }
-});
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.send('Goodbye!');
-});
-
-app.get('/auth/google/failure', (req, res) => {
-  res.send('Failed to authenticate..');
 });
 
 // Handlers
