@@ -44,6 +44,10 @@ const eventSchema = mongoose.Schema(
     sponsers: {
       type: [sponserSchema],
     },
+    img_urls:{
+      type:[String],
+      required:true,
+    }
   },
   {
     timestamp: true,

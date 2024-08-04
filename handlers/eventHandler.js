@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
     let organiser_ids = req.body.organisers;
     let category_ids = req.body.categories;
     let sponser_ids = req.body.sponsers;
+    let img_urls= req.body.img_urls;
 
     const venueFilter = { _id: venue_id };
     const venue = await Venue.findOne(venueFilter);
@@ -43,6 +44,7 @@ router.post("/", async (req, res) => {
     const sponsersFilter = { _id: sponser_ids };
     const sponsers = await Sponser.find(sponsersFilter);
 
+    
     let newEvent = await Event.create({
       name: name,
       description: description,
@@ -54,6 +56,7 @@ router.post("/", async (req, res) => {
       organisers: organisers,
       categories: categories,
       sponsers: sponsers,
+      img_urls: img_urls,
     });
 
     res.json({ message: "Success", result: newEvent });
